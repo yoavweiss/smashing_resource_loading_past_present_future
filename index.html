@@ -46,6 +46,7 @@ into the server. The image compression server was usually getting 2x
 size reduction on the images. And network bandwidth at the time was a
 serious issue, with top-notch mobile networks clocking at a cool
 33kbps!! 
+
 ---
 background-image: url(media/surprise.jpg)
 
@@ -129,6 +130,15 @@ old days of HTTP/1.1 and 33kbps bandwidth.
 But they are not perfect. So I want to finish the tour by talking about tomorrow's solutions - all the things that are currently in the
 works to improve resource loading on the web, and solve it once and for all (I hope).
 
+<!-- Colin: the setup is good, but I think you need to spell it out a bit more about what the problems are, what are the headwinds and
+what areas we can solve them. At this point I get that the internet is slow because we are doing more things, but I don't get 
+a sense from your intro that there is an overarching strategy or solution that can be used -->
+
+<!-- What about borrowing an anlogy from your renovation experience. coordinating many people on different schedules? 
+(I was just talking to a friend in germany who did a new home build, slightly smaller than our home, and it took one day. one day.-->
+
+<!-- I would also suggest previewing the list of problems and a list of solutions that will be covered. In the spirit of 'tell the
+user what you are going to tell them; tell them; then tell them what you told them.' A bullet list would suffice -->
 Let's get started:
 
 (6 minutes)
@@ -147,6 +157,15 @@ background-image: url(media/sketches/connection.jpg)
 ???
 When we start loading a page, once the user has clicked a link or wrote down a URL,
 we start the connection establishment process. That the first step that's inherently latency bound.
+    
+    <!-- Colin: Here is where I would probably work backwards instead of bottom up. Reverse the order of how the user experience is loaded.
+And more importantly, tie it to what the audience most likely understands. they are likely web design & front end. So I would suggest starting from
+the page assembly, browser flow, http, network and end with handshakes.
+
+On that note, handshake time is the hardest aspect to really give a damn. it's fast isn't it? so what if things that travel the
+speed of light have to go back and forth a bit? The key would be to make the user give a damn about even the littlest thing.
+
+-->
 
 ---
 class: bright
@@ -386,6 +405,8 @@ So resource size certainly still matters.
 * Bandwidth contention
 
 * Bloat
+    
+    <!-- colin: I'd have this list at the beginning of the section and repeat it at the end. give the audience context of both sides -->    
 
 
 ???
@@ -406,6 +427,9 @@ background-image: url(media/sketches/connection.jpg)
 
 So we've seen that connection establishment is something that takes a large number of RTTs and is inherently latency bound. How can we get
 rid of it?
+    
+    <!-- colin: I'd stress the goal is to use the space in the margines. before the network ramps up. or doing things in the background
+while the system is doing one thing -->
 
 ---
 
@@ -419,6 +443,7 @@ You can use `<link rel=preconncet>` hints in either your markup or your HTML in 
 every resource that is a potential bottleneck and which lives on a host different from the main host.
 
 XXX: Add an example of such requests?
+    <!-- colin: preload? -->
 ---
 
 # Connection coalescing
@@ -503,7 +528,7 @@ The IETF QUIC WG is working its way to standardizing the protocol, and plans to 
 ???
 At the same time, there's an ongoing proposal for an Alt-Svc extension for DNS, that will enable servers to declare QUIC support already at
 the DNS phase, and save many precious RTTs as browsers will "speak" QUIC directly to the servers instead of trying TCP+TLS first.
-
+ <!-- to be honest, the quic and alt-svc is suffering from a bit of a why-should-i-care compared to h2 push, etc -->
 ---
 layout: true
 class: center, middle
@@ -540,6 +565,8 @@ completely different 404 page vs. your 200 page), and it's not always
 trivial to "switch" pages on the user after an error has happened (and
 without reloading the whole thing).
 
+    <!-- colin: this is harder and might need some direction for how to do this with load balancers, ELBs, and CDNS. also this should be a shoute out
+to souders. what's old is new? -->
 ---
 
 # H2 push
@@ -664,6 +691,7 @@ writing and managing code dependencies significantly easier. They also
 make it harder for the browser, adding another layer to that dependency
 tree.
 
+    <!-- colin: maybe start with this sooner as it is a bit more relevant and more likely impacting the dev community? -->
 ---
 ![](media/discovery.png)
 
